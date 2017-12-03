@@ -1,2 +1,3 @@
 node_modules
 clarifai/key.js
+.DS_Store
