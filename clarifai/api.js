@@ -1,6 +1,7 @@
 const Clarifai = require('clarifai');
+const Key = require('./key');
 const app = new Clarifai.App({
-    apiKey: 'e86080b82fda4bd498c9bb2c7d13cb88'
+    apiKey: Key.api_key
 });
 
 app.models.predict("eeed0b6733a644cea07cf4c60f87ebb7", "https://samples.clarifai.com/metro-north.jpg").then(
