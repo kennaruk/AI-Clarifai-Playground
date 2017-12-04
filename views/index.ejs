@@ -28,18 +28,12 @@
       <div class="row">
 
         <div class="col-md-6">
-          <img class="img-fluid d-block" src="/images/mock.jpg" id="image">
+          <img class="img-fluid d-block" src="" id="image">
           <!-- <a class="btn p-3 my-3 btn-primary" href="">UPLOAD PHOTOS</a> -->
           <input type="file" class="btn p-3 my-3 btn-primary" name="files" id="upload">
         </div>
 
-        <div class="col-md-6">
-          <ul class="list-group">
-            <li class="list-group-item list-group-item-success">#FFO435</li>
-            <li class="list-group-item list-group-item-danger">#FFFFFF</li>
-            <li class="list-group-item list-group-item-info">#FFFFFF</li>
-            <li class="list-group-item list-group-item-warning">#FFFFFF</li>
-          </ul>
+        <div class="col-md-6" id="color_list">
         </div>
 
       </div>
@@ -55,11 +49,11 @@
   <script>
     $(()=> {
 
-      var formdata = new FormData();      
-      $("#upload").on("change", function(){
-        var file = this.files[0],
-            fileName = file.name,
-            fileSize = file.size;
+       
+      $("#upload").on("change", function(evt){
+        var formdata = new FormData();    
+        var file = this.files[0];
+
         if (!!file.type.match(/image.*/)) {
             var reader = new FileReader();
             reader.onloadend = function (e) {
@@ -68,7 +62,17 @@
             reader.readAsDataURL(file);
             
         }
-        formdata.append("images[]", file);
+        formdata.append("image", file);
+        
+        var reader = new FileReader();
+        reader.onloadend = function (e) {
+          showUploadedItem(e.target.result);
+        };
+        reader.readAsDataURL(file);
+
+        // swal("ระบบกำลังตรวจสอบสี", {
+        //   button: false,
+        // });
 
         $.ajax({
           url: "/upload",
@@ -77,11 +81,15 @@
           processData: false,
           contentType: false,
           success: function (res) {
-            console.log(res);
+            $('#color_list').html(res);
           }
         });
         
       });
+
+      function showUploadedItem (source) {
+        $('#image').attr("src", source);
+      }
 
     });
   </script>

@@ -1,0 +1,5 @@
+<ul class="list-group">
+    <% colors.forEach( color => { %>
+        <li class="list-group-item" style="background-color: <%=color.w3c.hex%>;"><%=color.w3c.name%> <%=color.w3c.hex%> <%=color.value%>%</li>        
+    <% }); %>
+</ul>
